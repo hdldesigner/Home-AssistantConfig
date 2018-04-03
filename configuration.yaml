@@ -107,11 +107,6 @@ verisure:
 # Cloud
 cloud:
 
-panel_iframe:
-  configurator:
-    title: Configurator
-    icon: mdi:wrench
-    url: http://contrib-stretch:3218
 
 input_boolean:
   appletv_alarm:
