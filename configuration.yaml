@@ -1,0 +1,147 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Oslo
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+recorder:
+  db_url: sqlite:///home/vagrant/home-assistant_v2.db
+
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+
+apple_tv:
+  - name: Apple TV Stue
+    host: 10.0.0.202
+    login_id: !secret apple_tv_login_id
+    credentials: !secret apple_tv_credentials
+
+ios:
+
+# Track the sun
+sun:
+
+# Weather prediction
+sensor:
+  - platform: yr
+    forecast: 24
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+      - lowClouds
+      - mediumClouds
+      - highClouds
+      - dewpointTemperature
+  - platform: tibber
+    access_token: !secret tibber_api
+  - platform: history_stats
+    name: AppleTV Today
+    entity_id: media_player.apple_tv
+    state: 'playing'
+    type: time
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'
+
+# Text to speech
+tts:
+  - platform: google
+
+verisure:
+  username: !secret verisure_username
+  password: !secret verisure_password
+#
+# Cloud
+cloud:
+
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: http://contrib-stretch:3218
+
+input_boolean:
+  appletv_alarm:
+    name: Notify Apple TV usage is to high
+    initial: off
+
+scene:
+  - name: Romantic
+    entities:
+      light.tv_back_light: on
+      light.ceiling:
+        state: on
+        xy_color: [0.33, 0.66]
+        brightness: 200
+  - name: Movies
+    entities:
+      light.tv_back_light:
+        state: on
+        brightness: 100
+      light.ceiling: off
+      media_player.sony_bravia_tv:
+        source: HDMI 1
+  - name: outside_lighting
+    entities:
+      switch.Utebelysning:
+        state: on
+  - name: outside_lighting_off
+    entities:
+      switch.Utebelysning:
+        state: off
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
