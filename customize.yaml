@@ -1,2 +1,4 @@
-binary_sensor.balkongdr:
-  hidden: true
+group.all_automations:
+    hidden: false
+group.all_scripts:
+    hidden: false

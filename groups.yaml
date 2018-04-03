@@ -1,0 +1,33 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.weather
+    - group.people
+    - group.all_switches
+    - group.all_lights
+    - group.all_devices
+weather:
+  name: Weather and temperatures
+  icon: mdi:weather-partlycloudy
+  view: no
+  entities:
+    - sensor.yr_symbol
+    - sensor.yr_percipitation
+    - sensor.yr_temperature
+    - sensor.yr_wind_speed
+    - sensor.solar_angle
+    - sensor.electricity_price
+people:
+    name: People
+    view: no
+    entities:
+      - sensor.occupancy_status
+      - sensor.jorg_home
+      - sensor.jevgenija_home
+automation_view:
+  name: Automation
+  view: yes
+  entities:
+    - group.all_automations
+    - group.all_scripts
