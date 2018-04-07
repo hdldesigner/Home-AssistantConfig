@@ -49,8 +49,6 @@ discovery:
 conversation:
 
 recorder:
-  db_url: sqlite:///home/vagrant/home-assistant_v2.db
-
 
 # Enables support for tracking state changes over time
 history:
@@ -66,7 +64,7 @@ apple_tv:
   - name: Apple TV Stue
     host: 10.0.0.202
     login_id: !secret apple_tv_login_id
-    credentials: !secret apple_tv_credentials
+#    credentials: !secret apple_tv_credentials
 
 ios:
 
@@ -103,7 +101,7 @@ sensor:
   - platform: template
     sensors:
       jorg_home:
-        value_template: '{% if is_state("device_tracker.iphone6splus_jorg", "home") or is_state("device_tracker.jeremysiphone", "home" ) %}home{% else %}away{% endif %}'
+        value_template: '{% if is_state("device_tracker.iphone6splus_jorg", "home") or is_state("device_tracker.iphone6splusjorg", "home" ) %}home{% else %}away{% endif %}'
       jevgenija_home:
         value_template: '{% if is_state("device_tracker.jevgenija_iphone", "home") or is_state("device_tracker.iphone", "home" ) %}home{% else %}away{% endif %}'
       alarm_home:
@@ -128,6 +126,8 @@ verisure:
 # Cloud
 cloud:
 
+mqtt:
+  discovery: true
 
 input_boolean:
   appletv_alarm:
@@ -163,6 +163,12 @@ scene:
     entities:
       switch.Utebelysning:
         state: off
+  - name: livingroom_background
+    entities:
+      switch.livingroom_window_lamp_left: on 
+      switch.livingroom_window_lamp_right: on
+      switch.livingroom_floor_lamp_left: on
+
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml

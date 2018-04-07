@@ -1,5 +1,5 @@
 default_view:
-  view: yes
+  view: no
   icon: mdi:home
   entities:
     - group.weather
@@ -18,6 +18,13 @@ weather:
     - sensor.yr_wind_speed
     - sensor.solar_angle
     - sensor.electricity_price
+livingroom:
+  name: livingroom
+  view: no
+  entities:
+    - switch.livingroom_window_lamp_left
+    - switch.livingroom_window_lamp_right
+    - switch.livingroom_floor_lamp_left
 people:
     name: People
     view: no

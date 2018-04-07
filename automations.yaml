@@ -38,7 +38,8 @@
   action:
   - entity_id: scene.outside_lighting_off
     service: scene.turn_on
-  - data: {The sun is up! Turning off external lights!}
+  - data:
+      The sun is up! Turning off external lights!:
     service: notify.prowl
 - id: my_unique_id
   alias: Turn a few lights on when the sun gets dim
@@ -60,3 +61,16 @@
   action:
     service: scene.turn_on
     entity_id: switch.inne
+- action:
+  - entity_id: scene.livingroom_background
+    service: scene.turn_on
+  alias: Welcome light
+  condition:
+  - after: sunset
+    before: sunrise
+    condition: sun
+  id: '1523139305948'
+  trigger:
+  - entity_id: sensor.occupancy_status
+    platform: state
+    to: home
